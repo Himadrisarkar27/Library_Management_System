@@ -1,18 +1,15 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-/**
- * Loan represents a book issued to a member with an issue date and due date.
- * We also store whether it has been returned.
- */
-public class Loan {
-    private String isbn;           // which book
-    private String memberId;       // which member
-    private LocalDate issueDate;   // when issued
-    private LocalDate dueDate;     // when due
-    private boolean returned;      // true if returned
 
-    private static final DateTimeFormatter FMT = DateTimeFormatter.ISO_LOCAL_DATE; // yyyy-MM-dd
+public class Loan {
+    private String isbn;           
+    private String memberId;       
+    private LocalDate issueDate;   
+    private LocalDate dueDate;     
+    private boolean returned;      
+
+    private static final DateTimeFormatter FMT = DateTimeFormatter.ISO_LOCAL_DATE; 
 
     public Loan(String isbn, String memberId, LocalDate issueDate, LocalDate dueDate, boolean returned) {
         this.isbn = isbn;
@@ -29,7 +26,6 @@ public class Loan {
     public boolean isReturned() { return returned; }
     public void setReturned(boolean returned) { this.returned = returned; }
 
-    // Save format: isbn|memberId|issueDate|dueDate|returned
     public String toFileString() {
         return escape(isbn) + "|" + escape(memberId) + "|" + issueDate.format(FMT) + "|" + dueDate.format(FMT) + "|" + returned;
     }
@@ -74,5 +70,6 @@ public class Loan {
         return "ISBN: " + isbn + ", Member: " + memberId + ", Issue: " + issueDate + ", Due: " + dueDate + ", Returned: " + returned;
     }
 }
+
 
 
