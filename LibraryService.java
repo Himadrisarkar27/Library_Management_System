@@ -3,28 +3,25 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * LibraryService holds data in memory using ArrayList and provides simple methods.
- * Data is loaded from/saved to text files using FileStorage.
- */
+
 public class LibraryService {
     private List<Book> books = new ArrayList<>();
     private List<Member> members = new ArrayList<>();
     private List<Loan> loans = new ArrayList<>();
 
-    // Fine per day for late returns (you can tweak this)
-    private static final double FINE_PER_DAY = 2.0; // simple flat rate
+    
+    private static final double FINE_PER_DAY = 2.0; 
 
     public LibraryService() {
-        // Load saved data when the app starts
+        
         books = FileStorage.loadBooks();
         members = FileStorage.loadMembers();
         loans = FileStorage.loadLoans();
     }
 
-    // ----------------- Book methods -----------------
+   
     public void addBook(Book book) {
-        // If ISBN exists, just increase quantity
+        
         Book existing = findBookByIsbn(book.getIsbn());
         if (existing != null) {
             existing.setQuantity(existing.getQuantity() + book.getQuantity());
@@ -65,9 +62,9 @@ public class LibraryService {
         return books;
     }
 
-    // ----------------- Member methods -----------------
+   
     public void addMember(Member member) {
-        // Simple: do not add duplicate IDs
+        
         if (findMemberById(member.getMemberId()) == null) {
             members.add(member);
             FileStorage.saveMembers(members);
@@ -85,12 +82,12 @@ public class LibraryService {
         return members;
     }
 
-    // ----------------- Loan methods -----------------
+    
     public boolean isBookAvailable(String isbn) {
         Book book = findBookByIsbn(isbn);
         if (book == null) return false;
 
-        // Count how many copies are currently loaned out (not returned)
+        
         int borrowedCount = 0;
         for (Loan l : loans) {
             if (!l.isReturned() && l.getIsbn().equalsIgnoreCase(isbn)) {
@@ -116,12 +113,12 @@ public class LibraryService {
     }
 
     public double returnBook(String isbn, String memberId) {
-        // Find the active (not returned) loan for this book and member
+       
         for (Loan l : loans) {
             if (!l.isReturned() && l.getIsbn().equalsIgnoreCase(isbn) && l.getMemberId().equalsIgnoreCase(memberId)) {
                 l.setReturned(true);
                 FileStorage.saveLoans(loans);
-                // Calculate fine if returned after due date
+                
                 LocalDate today = LocalDate.now();
                 if (today.isAfter(l.getDueDate())) {
                     long lateDays = ChronoUnit.DAYS.between(l.getDueDate(), today);
@@ -131,10 +128,11 @@ public class LibraryService {
                 }
             }
         }
-        return -1; // not found
+        return -1; 
     }
 
     public List<Loan> getAllLoans() { return loans; }
 }
+
 
 
