@@ -3,16 +3,11 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 
-/**
- * A very simple Swing GUI for the Library Management System.
- * - Uses tabs for different features
- * - Uses tables to display lists
- * - Keeps code straightforward and commented for beginners
- */
+
 public class LibraryGUI extends JFrame {
     private final LibraryService service = new LibraryService();
 
-    // Tables for displaying data
+    
     private final DefaultTableModel booksModel = new DefaultTableModel(new String[]{"ISBN", "Title", "Author", "Quantity"}, 0);
     private final JTable booksTable = new JTable(booksModel);
 
@@ -22,7 +17,7 @@ public class LibraryGUI extends JFrame {
     private final DefaultTableModel loansModel = new DefaultTableModel(new String[]{"ISBN", "Member ID", "Issue Date", "Due Date", "Returned"}, 0);
     private final JTable loansTable = new JTable(loansModel);
 
-    // Simple constructor: build the UI
+    
     public LibraryGUI() {
         super("Library Management System (Swing)");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -38,17 +33,17 @@ public class LibraryGUI extends JFrame {
 
         add(tabs);
 
-        // initial data load into tables
+        
         refreshBooksTable();
         refreshMembersTable();
         refreshLoansTable();
     }
 
-    // ----------------- Books tab -----------------
+    
     private JPanel createBooksTab() {
         JPanel panel = new JPanel(new BorderLayout());
 
-        // Top form to add a book
+        
         JPanel form = new JPanel(new GridLayout(2, 5, 8, 8));
         JTextField isbnField = new JTextField();
         JTextField titleField = new JTextField();
@@ -60,7 +55,7 @@ public class LibraryGUI extends JFrame {
         form.add(new JLabel("Title:"));
         form.add(new JLabel("Author:"));
         form.add(new JLabel("Quantity:"));
-        form.add(new JLabel("")); // empty cell
+        form.add(new JLabel("")); 
 
         form.add(isbnField);
         form.add(titleField);
@@ -81,17 +76,17 @@ public class LibraryGUI extends JFrame {
             service.addBook(new Book(isbn, title, author, qty));
             showMsg("Book saved.");
             refreshBooksTable();
-            // clear inputs
+            
             isbnField.setText("");
             titleField.setText("");
             authorField.setText("");
             qtyField.setText("");
         });
 
-        // Table area
+        
         JScrollPane tableScroll = new JScrollPane(booksTable);
 
-        // Bottom refresh button
+        
         JButton refreshBtn = new JButton("Refresh");
         refreshBtn.addActionListener(e -> refreshBooksTable());
         JPanel bottom = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -104,7 +99,7 @@ public class LibraryGUI extends JFrame {
     }
 
     private void refreshBooksTable() {
-        // Remove all rows then add from service list
+        
         clearModel(booksModel);
         List<Book> list = service.getAllBooks();
         for (Book b : list) {
@@ -112,7 +107,7 @@ public class LibraryGUI extends JFrame {
         }
     }
 
-    // ----------------- Members tab -----------------
+    
     private JPanel createMembersTab() {
         JPanel panel = new JPanel(new BorderLayout());
 
@@ -169,15 +164,15 @@ public class LibraryGUI extends JFrame {
         }
     }
 
-    // ----------------- Issue / Return tab -----------------
+    
     private JPanel createIssueReturnTab() {
         JPanel panel = new JPanel(new GridLayout(2, 1));
 
-        // Issue panel
+       
         JPanel issue = new JPanel(new GridLayout(2, 5, 8, 8));
         JTextField isbnField = new JTextField();
         JTextField memberField = new JTextField();
-        JTextField daysField = new JTextField("14"); // default 14 days
+        JTextField daysField = new JTextField("14"); 
         JButton issueBtn = new JButton("Issue");
 
         issue.add(new JLabel("ISBN:"));
@@ -209,7 +204,7 @@ public class LibraryGUI extends JFrame {
             }
         });
 
-        // Return panel
+        
         JPanel ret = new JPanel(new GridLayout(2, 4, 8, 8));
         JTextField rIsbn = new JTextField();
         JTextField rMember = new JTextField();
@@ -248,7 +243,7 @@ public class LibraryGUI extends JFrame {
         return panel;
     }
 
-    // ----------------- Search tab -----------------
+    
     private JPanel createSearchTab() {
         JPanel panel = new JPanel(new BorderLayout());
 
@@ -305,7 +300,7 @@ public class LibraryGUI extends JFrame {
         return panel;
     }
 
-    // ----------------- Loans tab -----------------
+    
     private JPanel createLoansTab() {
         JPanel panel = new JPanel(new BorderLayout());
         JScrollPane tableScroll = new JScrollPane(loansTable);
@@ -326,7 +321,7 @@ public class LibraryGUI extends JFrame {
         }
     }
 
-    // ----------------- Small helpers -----------------
+    
     private static void clearModel(DefaultTableModel model) {
         model.setRowCount(0);
     }
@@ -347,9 +342,10 @@ public class LibraryGUI extends JFrame {
     }
 
     public static void main(String[] args) {
-        // Start the GUI on the Event Dispatch Thread (best practice in Swing)
+        
         SwingUtilities.invokeLater(() -> new LibraryGUI().setVisible(true));
     }
 }
+
 
 
