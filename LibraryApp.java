@@ -1,21 +1,13 @@
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * Very simple console-based Library Management System
- * - Uses Scanner for input
- * - Uses ArrayList in memory
- * - Saves data to plain text files
- *
- * The code is split into small methods and has many comments
- * so beginners can follow the flow easily.
- */
+
 public class LibraryApp {
     private static final Scanner scanner = new Scanner(System.in);
     private static final LibraryService service = new LibraryService();
 
     public static void main(String[] args) {
-        // Main loop: show menu until user chooses to exit
+       
         while (true) {
             printMenu();
             int choice = readInt("Choose an option: ");
@@ -32,7 +24,7 @@ public class LibraryApp {
                 case 0: System.out.println("Goodbye!"); return;
                 default: System.out.println("Invalid option. Try again.");
             }
-            System.out.println(); // extra line for readability
+            System.out.println(); 
         }
     }
 
@@ -52,7 +44,7 @@ public class LibraryApp {
         System.out.println("0. Exit");
     }
 
-    // ----------------- Input helpers -----------------
+    
     private static int readInt(String msg) {
         while (true) {
             try {
@@ -74,15 +66,15 @@ public class LibraryApp {
         }
     }
 
-    // ----------------- Menu flows -----------------
+    
     private static void addBookFlow() {
-        // Ask for details
+        
         String isbn = readNonEmpty("Enter ISBN: ");
         String title = readNonEmpty("Enter Title: ");
         String author = readNonEmpty("Enter Author: ");
         int qty = readInt("Enter Quantity: ");
         if (qty < 0) qty = 0;
-        // Create and add
+     
         Book b = new Book(isbn, title, author, qty);
         service.addBook(b);
         System.out.println("Book added/updated successfully.");
@@ -162,5 +154,6 @@ public class LibraryApp {
         for (Loan l : list) System.out.println(l);
     }
 }
+
 
 
