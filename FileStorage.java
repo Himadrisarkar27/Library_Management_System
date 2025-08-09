@@ -3,17 +3,14 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * FileStorage is a tiny helper that reads/writes plain text files line-by-line.
- * We keep it simple: each object knows how to convert itself to/from a line.
- */
+
 public class FileStorage {
-    // Paths for our data files (you can change them if you want)
+    
     public static final String BOOKS_FILE = "books.txt";
     public static final String MEMBERS_FILE = "members.txt";
     public static final String LOANS_FILE = "loans.txt";
 
-    // --------------- Book ---------------
+    
     public static void saveBooks(List<Book> books) {
         writeLines(BOOKS_FILE, toBookLines(books));
     }
@@ -28,7 +25,7 @@ public class FileStorage {
         return books;
     }
 
-    // --------------- Member ---------------
+  
     public static void saveMembers(List<Member> members) {
         writeLines(MEMBERS_FILE, toMemberLines(members));
     }
@@ -43,7 +40,7 @@ public class FileStorage {
         return members;
     }
 
-    // --------------- Loan ---------------
+   
     public static void saveLoans(List<Loan> loans) {
         writeLines(LOANS_FILE, toLoanLines(loans));
     }
@@ -58,7 +55,7 @@ public class FileStorage {
         return loans;
     }
 
-    // --------------- Helpers ---------------
+    
     private static List<String> toBookLines(List<Book> books) {
         List<String> list = new ArrayList<>();
         for (Book b : books) list.add(b.toFileString());
@@ -81,7 +78,7 @@ public class FileStorage {
         List<String> lines = new ArrayList<>();
         File file = new File(path);
         if (!file.exists()) {
-            return lines; // empty if file not found
+            return lines; 
         }
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))) {
             String line;
@@ -107,5 +104,6 @@ public class FileStorage {
         }
     }
 }
+
 
 
