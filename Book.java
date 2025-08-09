@@ -1,14 +1,11 @@
 import java.util.Objects;
 
-/**
- * Very simple Book class to hold book information in memory.
- * We keep only the basics to make it beginner-friendly.
- */
+
 public class Book {
-    private String isbn;       // unique identifier for a book
-    private String title;      // book title
-    private String author;     // author's name
-    private int quantity;      // total copies owned by library
+    private String isbn;       
+    private String title;      
+    private String author;     
+    private int quantity;      
 
     public Book(String isbn, String title, String author, int quantity) {
         this.isbn = isbn;
@@ -37,21 +34,16 @@ public class Book {
         this.quantity = quantity;
     }
 
-    /**
-     * Convert a Book to a line of text for saving to a file.
-     * We separate fields with the pipe character '|'.
-     */
+    
     public String toFileString() {
-        // Order: isbn|title|author|quantity
+        
         return escape(isbn) + "|" + escape(title) + "|" + escape(author) + "|" + quantity;
     }
 
-    /**
-     * Create a Book object from a line of text.
-     */
+  
     public static Book fromFileString(String line) {
         if (line == null) return null;
-        String[] parts = line.split("\\|", -1); // keep empty fields
+        String[] parts = line.split("\\|", -1); 
         if (parts.length < 4) return null;
         String isbn = unescape(parts[0]);
         String title = unescape(parts[1]);
@@ -65,7 +57,7 @@ public class Book {
         return new Book(isbn, title, author, quantity);
     }
 
-    // Very simple escaping so our data is safe even if it contains '|'
+    
     private static String escape(String s) {
         if (s == null) return "";
         return s.replace("\\", "\\\\").replace("|", "\\|");
@@ -107,5 +99,6 @@ public class Book {
         return Objects.hash(isbn);
     }
 }
+
 
 
