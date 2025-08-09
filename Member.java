@@ -1,10 +1,8 @@
-/**
- * Very simple Member class to hold member information.
- */
+
 public class Member {
-    private String memberId;   // unique ID for member
-    private String name;       // member name
-    private String contact;    // contact info (phone/email)
+    private String memberId;   
+    private String name;       
+    private String contact;    
 
     public Member(String memberId, String name, String contact) {
         this.memberId = memberId;
@@ -67,5 +65,6 @@ public class Member {
         return "ID: " + memberId + ", Name: " + name + ", Contact: " + contact;
     }
 }
+
 
 
